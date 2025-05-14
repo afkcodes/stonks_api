@@ -1,6 +1,6 @@
-# fast_x
+# Stonks api
 
-A high-performance Fastify backend with best practices, proper structure, and modern tooling.
+Backend for the stonks an unofficial api for stock data and news
 
 ## Features
 
