@@ -1,6 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import {
   getAutoCompleteController,
+  getGainersController,
+  getLosersController,
   getMarketWatchController,
   getMarqueeStocksController,
   getMostActiveEtfController,
@@ -19,4 +21,6 @@ export const stocksRoutes = async (fastify: FastifyInstance) => {
   fastify.get("/most-active-sme", getMostActiveSmeController);
   fastify.get("/most-active-etf", getMostActiveEtfController);
   fastify.get("/volume-gainers", getVolumeGainersController);
+  fastify.get("/top-gainers", getGainersController);
+  fastify.get("/top-losers", getLosersController);
 };

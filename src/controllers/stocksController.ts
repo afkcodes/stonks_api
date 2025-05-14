@@ -1,6 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import {
   getAutoCompleteService,
+  getGainersService,
+  getLosersService,
   getMarketWatchService,
   getMarqueeStocksService,
   getMostActiveEtfService,
@@ -81,6 +83,24 @@ export const getMostActiveEtfController = async (_request: FastifyRequest, reply
 export const getVolumeGainersController = async (_request: FastifyRequest, reply: FastifyReply) => {
   try {
     const response = await getVolumeGainersService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getGainersController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await getGainersService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getLosersController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await getLosersService();
     return reply.send(response);
   } catch (error) {
     return reply.status(500).send({ error });

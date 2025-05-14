@@ -4,10 +4,12 @@ export const NSE = {
   MARKET_WATCH: "/api/NextApi/apiClient?functionName=getIndexData&type=All",
   AUTO_COMPLETE: "/api/search/autocomplete?q=",
   QUOTE_EQUITY: "/api/quote-equity?symbol=",
-  LIVE_ANALYSIS_SECURITIES: "/api/live-analysis-most-active-securities?index=value", // done upto here
+  LIVE_ANALYSIS_SECURITIES: "/api/live-analysis-most-active-securities?index=value",
   LIVE_ANALYSIS_SME: "/api/live-analysis-most-active-sme?index=volume",
   LIVE_ANALYSIS_ETF: "/api/live-analysis-most-active-etf?index=volume",
   LIVE_ANALYSIS_VOLUME_GAINERS: "/api/live-analysis-volume-gainers",
+  GAINERS: "/api/live-analysis-variations?index=gainers",
+  LOSERS: "/api/live-analysis-variations?index=loosers", // done upto here
   LIVE_ANALYSIS_STOCKS_TRADED: "/api/live-analysis-stocksTraded",
   LIVE_ANALYSIS_PRICE_BAND_HITTER: "/api/live-analysis-price-band-hitter",
   LIVE_ANALYSIS_52WEEK_HIGH: "/api/live-analysis-data-52weekhighstock",

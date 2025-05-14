@@ -96,3 +96,26 @@ export async function getVolumeGainersService() {
     throw new Error("Internal Server Error");
   }
 }
+export async function getGainersService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.GAINERS}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getLosersService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LOSERS}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
