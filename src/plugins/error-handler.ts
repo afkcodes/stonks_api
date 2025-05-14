@@ -1,7 +1,7 @@
-import { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import fp from 'fastify-plugin';
-import { config } from '~/config';
-import { AppError } from '~/utils/errors';
+import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import fp from "fastify-plugin";
+import { config } from "~/config";
+import { AppError } from "~/utils/errors";
 
 /**
  * Plugin that adds a global error handler to Fastify
@@ -10,12 +10,8 @@ export default fp(
   async function errorHandlerPlugin(fastify: FastifyInstance) {
     // Handle errors thrown during request processing
     fastify.setErrorHandler(
-      (
-        error: Error | AppError | FastifyError,
-        request: FastifyRequest,
-        reply: FastifyReply
-      ) => {
-        const isDev = config.environment === 'development';
+      (error: Error | AppError | FastifyError, request: FastifyRequest, reply: FastifyReply) => {
+        const isDev = config.environment === "development";
 
         // Handle our custom AppError instances
         if (error instanceof AppError) {
@@ -33,8 +29,8 @@ export default fp(
         if ((error as FastifyError).validation) {
           const validationError = error as FastifyError;
           const response = {
-            error: 'VALIDATION_ERROR',
-            message: 'Request validation failed',
+            error: "VALIDATION_ERROR",
+            message: "Request validation failed",
             details: validationError.validation,
             ...(isDev && { stack: error.stack }),
           };
@@ -47,24 +43,24 @@ export default fp(
 
         // Default error response for unhandled errors
         const response = {
-          error: 'INTERNAL_SERVER_ERROR',
-          message: isDev ? error.message : 'An unexpected error occurred',
+          error: "INTERNAL_SERVER_ERROR",
+          message: isDev ? error.message : "An unexpected error occurred",
           ...(isDev && { stack: error.stack }),
         };
 
         return reply.code(500).send(response);
-      }
+      },
     );
 
     // Handle 404 Not Found errors
     fastify.setNotFoundHandler((request: FastifyRequest, reply: FastifyReply) => {
       reply.code(404).send({
-        error: 'NOT_FOUND',
+        error: "NOT_FOUND",
         message: `Route ${request.method}:${request.url} not found`,
       });
     });
   },
   {
-    name: 'error-handler',
-  }
+    name: "error-handler",
+  },
 );
