@@ -3,8 +3,8 @@ export const NSE = {
   MARQUEE_STOCKS: "/api/NextApi/apiClient?functionName=getMarqueData",
   MARKET_WATCH: "/api/NextApi/apiClient?functionName=getIndexData&type=All",
   AUTO_COMPLETE: "/api/search/autocomplete?q=",
-  QUOTE_EQUITY: "/api/quote-equity?symbol=", // done upto here
-  LIVE_ANALYSIS_SECURITIES: "/api/live-analysis-most-active-securities?index=value",
+  QUOTE_EQUITY: "/api/quote-equity?symbol=",
+  LIVE_ANALYSIS_SECURITIES: "/api/live-analysis-most-active-securities?index=value", // done upto here
   LIVE_ANALYSIS_SME: "/api/live-analysis-most-active-sme?index=volume",
   LIVE_ANALYSIS_ETF: "/api/live-analysis-most-active-etf?index=volume",
   LIVE_ANALYSIS_VOLUME_GAINERS: "/api/live-analysis-volume-gainers",

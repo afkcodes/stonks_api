@@ -49,3 +49,50 @@ export async function getAutoCompleteService(symbol: string) {
     throw new Error("Internal Server Error");
   }
 }
+
+export async function getMostActiveSecuritiesService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_SECURITIES}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getMostActiveSmeService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_SME}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getMostActiveEtfService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_ETF}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+export async function getVolumeGainersService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_VOLUME_GAINERS}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
