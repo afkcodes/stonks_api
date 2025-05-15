@@ -119,3 +119,98 @@ export async function getLosersService() {
     throw new Error("Internal Server Error");
   }
 }
+
+export async function getTradedStocksService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_STOCKS_TRADED}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getPriceBandHitterService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_PRICE_BAND_HITTER}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function get52WeekHighService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_52WEEK_HIGH}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function get52WeekLowService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_52WEEK_LOW}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getLargeDealsService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.LIVE_ANALYSIS_LARGE_DEAL}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+export async function getIpoCurrentIssueService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.IPO_CURRENT_ISSUE}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getIpoUpcomingIssuesService() {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.IPO_UPCOMING_ISSUES}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getCorporateShareHoldingsService(symbol: string) {
+  try {
+    const cookies = await getNseCookies();
+    const response = await http<any>(`${baseUrl}${NSE.CORPORATE_SHARE_HOLDINGS}${symbol}`, {
+      headers: { ...BASE_HEADERS, Cookie: cookies },
+    });
+    return response;
+  } catch {
+    throw new Error("Internal Server Error");
+  }
+}

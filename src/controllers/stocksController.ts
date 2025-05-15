@@ -1,14 +1,21 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import {
+  get52WeekHighService,
+  get52WeekLowService,
   getAutoCompleteService,
   getGainersService,
+  getIpoCurrentIssueService,
+  getIpoUpcomingIssuesService,
+  getLargeDealsService,
   getLosersService,
   getMarketWatchService,
   getMarqueeStocksService,
   getMostActiveEtfService,
   getMostActiveSecuritiesService,
   getMostActiveSmeService,
+  getPriceBandHitterService,
   getQuoteEquityService,
+  getTradedStocksService,
   getVolumeGainersService,
 } from "~/services/stockService";
 
@@ -101,6 +108,78 @@ export const getGainersController = async (_request: FastifyRequest, reply: Fast
 export const getLosersController = async (_request: FastifyRequest, reply: FastifyReply) => {
   try {
     const response = await getLosersService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getTradedStocksController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await getTradedStocksService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getPriceBandHitterController = async (
+  _request: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  try {
+    const response = await getPriceBandHitterService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const get52WeekHighController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await get52WeekHighService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const get52WeekLowController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await get52WeekLowService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getLargeDealsController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await getLargeDealsService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getIpoCurrentIssuesController = async (
+  _request: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  try {
+    const response = await getIpoCurrentIssueService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getIpoUpcomingIssuesController = async (
+  _request: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  try {
+    const response = await getIpoUpcomingIssuesService();
     return reply.send(response);
   } catch (error) {
     return reply.status(500).send({ error });

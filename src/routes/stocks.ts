@@ -1,14 +1,21 @@
 import type { FastifyInstance } from "fastify";
 import {
+  get52WeekHighController,
+  get52WeekLowController,
   getAutoCompleteController,
   getGainersController,
+  getIpoCurrentIssuesController,
+  getIpoUpcomingIssuesController,
+  getLargeDealsController,
   getLosersController,
   getMarketWatchController,
   getMarqueeStocksController,
   getMostActiveEtfController,
   getMostActiveSecuritiesController,
   getMostActiveSmeController,
+  getPriceBandHitterController,
   getQuoteEquityController,
+  getTradedStocksController,
   getVolumeGainersController,
 } from "~/controllers/stocksController";
 
@@ -23,4 +30,11 @@ export const stocksRoutes = async (fastify: FastifyInstance) => {
   fastify.get("/volume-gainers", getVolumeGainersController);
   fastify.get("/top-gainers", getGainersController);
   fastify.get("/top-losers", getLosersController);
+  fastify.get("/stocks-traded", getTradedStocksController);
+  fastify.get("/price-band-hitter", getPriceBandHitterController);
+  fastify.get("/52-week-high", get52WeekHighController);
+  fastify.get("/52-week-low", get52WeekLowController);
+  fastify.get("/large-deals", getLargeDealsController);
+  fastify.get("/current-ipos", getIpoCurrentIssuesController);
+  fastify.get("/upcoming-ipos", getIpoUpcomingIssuesController);
 };

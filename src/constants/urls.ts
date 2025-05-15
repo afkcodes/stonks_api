@@ -9,11 +9,11 @@ export const NSE = {
   LIVE_ANALYSIS_ETF: "/api/live-analysis-most-active-etf?index=volume",
   LIVE_ANALYSIS_VOLUME_GAINERS: "/api/live-analysis-volume-gainers",
   GAINERS: "/api/live-analysis-variations?index=gainers",
-  LOSERS: "/api/live-analysis-variations?index=loosers", // done upto here
+  LOSERS: "/api/live-analysis-variations?index=loosers",
   LIVE_ANALYSIS_STOCKS_TRADED: "/api/live-analysis-stocksTraded",
   LIVE_ANALYSIS_PRICE_BAND_HITTER: "/api/live-analysis-price-band-hitter",
   LIVE_ANALYSIS_52WEEK_HIGH: "/api/live-analysis-data-52weekhighstock",
-  LIVE_ANALYSIS_52WEEK_LOW: "/api/live-analysis-data-52weeklowstock",
+  LIVE_ANALYSIS_52WEEK_LOW: "/api/live-analysis-data-52weeklowstock", // done upto here
   LIVE_ANALYSIS_LARGE_DEAL: "/api/snapshot-capital-market-largedeal",
   IPO_CURRENT_ISSUE: "/api/ipo-current-issue",
   IPO_UPCOMING_ISSUES: "/api/all-upcoming-issues?category=ipo",
