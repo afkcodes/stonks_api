@@ -4,6 +4,7 @@ import {
   get52WeekLowController,
   getAnnualFinancialReportController,
   getAutoCompleteController,
+  getCommoditiesController,
   getGainersController,
   getIpoCurrentIssuesController,
   getIpoUpcomingIssuesController,
@@ -41,4 +42,5 @@ export const stocksRoutes = async (fastify: FastifyInstance) => {
   fastify.get('/upcoming-ipos', getIpoUpcomingIssuesController);
   fastify.get('/financial-report/qtr/:symbol', getQuarterlyFinancialReportController);
   fastify.get('/financial-report/annual/:symbol', getAnnualFinancialReportController);
+  fastify.get('/commodities', getCommoditiesController);
 };

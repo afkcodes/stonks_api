@@ -37,3 +37,6 @@ export const EQUITY_MASTER = {
   FACT_SHEET: '/research-it/factsheet/factsheet.aspx/FSAJAX',
   AUTO_COMPLETE: '/AsyncData.asmx/CompanyAC',
 };
+
+export const COMMODITIES_URL =
+  'https://economictimes.indiatimes.com/commodities_newet_stats_movers.cms?language=';

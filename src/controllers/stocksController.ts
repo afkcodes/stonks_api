@@ -4,6 +4,7 @@ import {
   get52WeekLowService,
   getAnnualFinancialReportService,
   getAutoCompleteService,
+  getCommoditiesService,
   getEquityMasterStockCodeService,
   getGainersService,
   getIpoCurrentIssueService,
@@ -223,6 +224,15 @@ export const getAnnualFinancialReportController = async (
   const { symbol } = request.params as { symbol: string };
   try {
     const response = await getAnnualFinancialReportService(symbol);
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getCommoditiesController = async (_request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const response = await getCommoditiesService();
     return reply.send(response);
   } catch (error) {
     return reply.status(500).send({ error });

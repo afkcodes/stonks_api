@@ -1,5 +1,6 @@
 import { BASE_HEADERS } from '~/constants/common';
-import { EQUITY_MASTER, NSE } from '~/constants/urls';
+import { COMMODITIES_URL, EQUITY_MASTER, NSE } from '~/constants/urls';
+import { processCommodities } from '~/utils/commodities';
 import { getNseCookies } from '~/utils/common';
 import http from '~/utils/http';
 import { processHtml } from '~/utils/sanitize';
@@ -259,3 +260,13 @@ export const getAnnualFinancialReportService = async (symbol = 'HDBK') => {
     throw new Error('Internal Server Error, Failed to get financial report');
   }
 };
+
+export async function getCommoditiesService() {
+  try {
+    const response = await http<any>(COMMODITIES_URL, { responseType: 'text' });
+    console.log(response);
+    return processCommodities(response);
+  } catch {
+    throw new Error('Internal Server Error, Failed to get commodities');
+  }
+}
