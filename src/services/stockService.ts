@@ -1,7 +1,8 @@
-import { BASE_HEADERS } from "~/constants/common";
-import { NSE } from "~/constants/urls";
-import { getNseCookies } from "~/utils/common";
-import http from "~/utils/http";
+import { BASE_HEADERS } from '~/constants/common';
+import { EQUITY_MASTER, NSE } from '~/constants/urls';
+import { getNseCookies } from '~/utils/common';
+import http from '~/utils/http';
+import { processHtml } from '~/utils/sanitize';
 
 const baseUrl = NSE.BASE_URL;
 
@@ -12,7 +13,7 @@ export async function getMarketWatchService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get market watch');
   }
 }
 
@@ -23,7 +24,7 @@ export async function getMarqueeStocksService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get marquee stocks');
   }
 }
 
@@ -35,7 +36,7 @@ export async function getQuoteEquityService(symbol: string) {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get quote equity');
   }
 }
 
@@ -46,7 +47,7 @@ export async function getAutoCompleteService(symbol: string) {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get auto complete');
   }
 }
 
@@ -58,7 +59,7 @@ export async function getMostActiveSecuritiesService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get most active securities');
   }
 }
 
@@ -70,7 +71,7 @@ export async function getMostActiveSmeService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get most active SME');
   }
 }
 
@@ -82,7 +83,7 @@ export async function getMostActiveEtfService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get most active ETF');
   }
 }
 export async function getVolumeGainersService() {
@@ -93,7 +94,7 @@ export async function getVolumeGainersService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get volume gainers');
   }
 }
 export async function getGainersService() {
@@ -104,7 +105,7 @@ export async function getGainersService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get gainers');
   }
 }
 
@@ -116,7 +117,7 @@ export async function getLosersService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get losers');
   }
 }
 
@@ -128,7 +129,7 @@ export async function getTradedStocksService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get traded stocks');
   }
 }
 
@@ -140,7 +141,7 @@ export async function getPriceBandHitterService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get price band hitter');
   }
 }
 
@@ -152,7 +153,7 @@ export async function get52WeekHighService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get 52 week high');
   }
 }
 
@@ -164,7 +165,7 @@ export async function get52WeekLowService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get 52 week low');
   }
 }
 
@@ -176,7 +177,7 @@ export async function getLargeDealsService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get large deals');
   }
 }
 export async function getIpoCurrentIssueService() {
@@ -187,7 +188,7 @@ export async function getIpoCurrentIssueService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get current issues');
   }
 }
 
@@ -199,7 +200,7 @@ export async function getIpoUpcomingIssuesService() {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get upcoming issues');
   }
 }
 
@@ -211,6 +212,50 @@ export async function getCorporateShareHoldingsService(symbol: string) {
     });
     return response;
   } catch {
-    throw new Error("Internal Server Error");
+    throw new Error('Internal Server Error, Failed to get corporate share holdings');
   }
 }
+
+export const getEquityMasterStockCodeService = async (symbol: string) => {
+  try {
+    const response = await http<any>(`${EQUITY_MASTER.BASE_URL}${EQUITY_MASTER.AUTO_COMPLETE}`, {
+      method: 'POST',
+      body: { strData: symbol },
+    });
+    return { code: response?.d?.[0]?.split('^')?.[1] };
+  } catch {
+    throw new Error('Internal Server Error, Failed to get stock code');
+  }
+};
+
+export const getQuarterlyFinancialReportService = async (symbol = 'HDBK') => {
+  try {
+    const response = await http<any>(`${EQUITY_MASTER.BASE_URL}${EQUITY_MASTER.FACT_SHEET}`, {
+      method: 'POST',
+      body: {
+        t: 'Qtr',
+        sym: symbol,
+        sect: '',
+      },
+    });
+    return processHtml(response?.d);
+  } catch {
+    throw new Error('Internal Server Error, Failed to get financial report');
+  }
+};
+
+export const getAnnualFinancialReportService = async (symbol = 'HDBK') => {
+  try {
+    const response = await http<any>(`${EQUITY_MASTER.BASE_URL}${EQUITY_MASTER.FACT_SHEET}`, {
+      method: 'POST',
+      body: {
+        t: 'Annl',
+        sym: symbol,
+        sect: '',
+      },
+    });
+    return processHtml(response?.d);
+  } catch {
+    throw new Error('Internal Server Error, Failed to get financial report');
+  }
+};

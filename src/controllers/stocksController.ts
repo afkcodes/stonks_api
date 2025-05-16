@@ -1,8 +1,10 @@
-import type { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import {
   get52WeekHighService,
   get52WeekLowService,
+  getAnnualFinancialReportService,
   getAutoCompleteService,
+  getEquityMasterStockCodeService,
   getGainersService,
   getIpoCurrentIssueService,
   getIpoUpcomingIssuesService,
@@ -14,10 +16,11 @@ import {
   getMostActiveSecuritiesService,
   getMostActiveSmeService,
   getPriceBandHitterService,
+  getQuarterlyFinancialReportService,
   getQuoteEquityService,
   getTradedStocksService,
   getVolumeGainersService,
-} from "~/services/stockService";
+} from '~/services/stockService';
 
 export async function getMarketWatchController(_request: FastifyRequest, reply: FastifyReply) {
   try {
@@ -51,7 +54,8 @@ export async function getAutoCompleteController(request: FastifyRequest, reply: 
   const { symbol } = request.params as { symbol: string };
   try {
     const response = await getAutoCompleteService(symbol);
-    return reply.send(response);
+    const eqMCode = await getEquityMasterStockCodeService(symbol);
+    return reply.send({ symbols: response?.symbols, eqMCode });
   } catch (error) {
     return reply.status(500).send({ error });
   }
@@ -180,6 +184,45 @@ export const getIpoUpcomingIssuesController = async (
 ) => {
   try {
     const response = await getIpoUpcomingIssuesService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getEquityMasterStockCodeController = async (
+  request: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  const { symbol } = request.params as { symbol: string };
+  try {
+    const response = await getEquityMasterStockCodeService(symbol);
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getQuarterlyFinancialReportController = async (
+  request: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  const { symbol } = request.params as { symbol: string };
+  try {
+    const response = await getQuarterlyFinancialReportService(symbol);
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getAnnualFinancialReportController = async (
+  request: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  const { symbol } = request.params as { symbol: string };
+  try {
+    const response = await getAnnualFinancialReportService(symbol);
     return reply.send(response);
   } catch (error) {
     return reply.status(500).send({ error });
