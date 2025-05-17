@@ -18,6 +18,7 @@ import {
   getPriceBandHitterController,
   getQuarterlyFinancialReportController,
   getQuoteEquityController,
+  getStockNewsController,
   getTradedStocksController,
   getVolumeGainersController,
 } from '~/controllers/stocksController';
@@ -43,4 +44,5 @@ export const stocksRoutes = async (fastify: FastifyInstance) => {
   fastify.get('/financial-report/qtr/:symbol', getQuarterlyFinancialReportController);
   fastify.get('/financial-report/annual/:symbol', getAnnualFinancialReportController);
   fastify.get('/commodities', getCommoditiesController);
+  fastify.get('/news/:symbol', getStockNewsController);
 };

@@ -19,6 +19,7 @@ import {
   getPriceBandHitterService,
   getQuarterlyFinancialReportService,
   getQuoteEquityService,
+  getStockNewsService,
   getTradedStocksService,
   getVolumeGainersService,
 } from '~/services/stockService';
@@ -233,6 +234,16 @@ export const getAnnualFinancialReportController = async (
 export const getCommoditiesController = async (_request: FastifyRequest, reply: FastifyReply) => {
   try {
     const response = await getCommoditiesService();
+    return reply.send(response);
+  } catch (error) {
+    return reply.status(500).send({ error });
+  }
+};
+
+export const getStockNewsController = async (request: FastifyRequest, reply: FastifyReply) => {
+  const { symbol } = request.params as { symbol: string };
+  try {
+    const response = await getStockNewsService(symbol);
     return reply.send(response);
   } catch (error) {
     return reply.status(500).send({ error });

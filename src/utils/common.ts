@@ -1,5 +1,5 @@
-import { BASE_HEADERS, USER_AGENT } from "~/constants/common";
-import { NSE } from "~/constants/urls";
+import { BASE_HEADERS, USER_AGENT } from '~/constants/common';
+import { NSE } from '~/constants/urls';
 
 /**
  * Gets NSE cookies
@@ -10,20 +10,20 @@ export const getNseCookies = async (): Promise<string> => {
     const response = await fetch(`${NSE.BASE_URL}/get-quotes/equity?symbol=TCS`, {
       headers: {
         ...BASE_HEADERS,
-        "User-Agent": USER_AGENT,
+        'User-Agent': USER_AGENT,
       },
     });
 
     const cookies: string[] = [];
 
     response.headers.forEach((value, key) => {
-      if (key.toLowerCase() === "set-cookie") {
-        cookies.push(value.split(";")[0]);
+      if (key.toLowerCase() === 'set-cookie') {
+        cookies.push(value.split(';')[0]);
       }
     });
 
-    return cookies.join("; ");
+    return cookies.join('; ');
   } catch {
-    return "";
+    return '';
   }
 };

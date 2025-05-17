@@ -2,6 +2,7 @@ import { BASE_HEADERS } from '~/constants/common';
 import { COMMODITIES_URL, EQUITY_MASTER, NSE } from '~/constants/urls';
 import { processCommodities } from '~/utils/commodities';
 import { getNseCookies } from '~/utils/common';
+import { scrapeGoogleNews } from '~/utils/gnews';
 import http from '~/utils/http';
 import { processHtml } from '~/utils/sanitize';
 
@@ -268,5 +269,20 @@ export async function getCommoditiesService() {
     return processCommodities(response);
   } catch {
     throw new Error('Internal Server Error, Failed to get commodities');
+  }
+}
+
+export async function getStockNewsService(symbol: string) {
+  try {
+    const articles = await scrapeGoogleNews({
+      keyword: symbol,
+      country: 'IN',
+      language: 'en',
+      limit: 20,
+    });
+
+    return articles;
+  } catch {
+    throw new Error('Internal Server Error, Failed to get stock news');
   }
 }
